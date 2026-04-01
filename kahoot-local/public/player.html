@@ -9,7 +9,7 @@
 <body>
   <div id="waiting" class="waiting">
     <div class="waiting-icon">🎮</div>
-    <p>Waiting for the host to start...</p>
+    <p>Aguardando jogadores...</p>
   </div>
 
   <div id="question-wrap" class="question-wrap" style="display:none;">
@@ -56,14 +56,14 @@
       buttons.forEach((btn, i) => {
         if (i === correctAnswer) btn.style.filter = "brightness(1)";
       });
-      feedback.textContent = "⏳ Next question coming up...";
+      feedback.textContent = "⏳ Próxima pergunta vindo...";
       feedback.className = "result-feedback";
     });
 
     socket.on("game_over", (players) => {
       const sorted = [...players].sort((a, b) => b.score - a.score);
       document.getElementById("question-wrap").innerHTML = `
-        <h2 id="question">🏆 Game Over!</h2>
+        <h2 id="question">🏆 Resultados!</h2>
         <div id="answers" style="display:flex;flex-direction:column;gap:0.75rem;margin-top:1rem;">
           ${sorted.map((p, i) => `
             <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.9rem 1.2rem;display:flex;justify-content:space-between;align-items:center;font-weight:700;">

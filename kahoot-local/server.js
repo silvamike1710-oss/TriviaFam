@@ -69,7 +69,7 @@ io.on("connection", (socket) => {
       answers: {},
       questions: [
         {
-          question: "Capital of France?",
+          question: "Capital da frança?",
           options: ["Paris", "Berlin", "Madrid", "Rome"],
           answer: 0,
           time: 10
