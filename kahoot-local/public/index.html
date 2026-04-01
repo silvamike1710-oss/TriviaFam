@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuizBlitz — Join</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <div class="card">
+    <div class="logo">QuizBlitz</div>
+    <p class="subtitle">Live Quiz Game</p>
+
+    <div class="field">
+      <label for="name">Your Name</label>
+      <input id="name" placeholder="Enter your name" autocomplete="off" />
+    </div>
+
+    <div class="field">
+      <label for="pin">Game PIN</label>
+      <input id="pin" placeholder="6-digit PIN" maxlength="6" autocomplete="off" />
+    </div>
+
+    <button class="btn" onclick="join()">Join Game</button>
+
+    <div class="divider">or</div>
+
+    <a class="btn btn-secondary" href="/host.html">Host a Game</a>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    function join() {
+      const name = document.getElementById("name").value.trim();
+      const pin = document.getElementById("pin").value.trim();
+      if (!name || !pin) return;
+
+      socket.emit("join_game", { pin, name });
+      localStorage.setItem("pin", pin);
+      localStorage.setItem("name", name);
+      window.location.href = "/player.html";
+    }
+
+    document.getElementById("pin").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") join();
+    });
+  </script>
+</body>
+</html>

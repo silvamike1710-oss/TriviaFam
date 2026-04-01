@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuizBlitz — Host</title>
+  <link rel="stylesheet" href="/host.css" />
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="logo">QuizBlitz</div>
+
+      <div class="pin-badge">
+        <div class="pin-label">Game PIN</div>
+        <div class="pin-number" id="pin">——</div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" onclick="create()">Create Game</button>
+        <button class="btn btn-start" onclick="start()">▶ Start</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">Players</div>
+        <ul id="players"></ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Answers This Round</div>
+        <table id="answer-table">
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Answered</th>
+              <th>Correct?</th>
+            </tr>
+          </thead>
+          <tbody id="answer-rows"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    let currentPin = "";
+
+    function create() {
+      socket.emit("create_game");
+    }
+
+    function start() {
+      console.log("Start clicked", currentPin);
+      socket.emit("start_game", currentPin);
+    }
+
+    function renderAnswers(answers, correctAnswer) {
+      const tbody = document.getElementById("answer-rows");
+      tbody.innerHTML = "";
+      answers.forEach(a => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${a.name}</td>
+          <td>${a.skipped ? "No answer" : "Option " + (a.answer + 1)}</td>
+          <td>${a.skipped ? "❌" : a.correct ? "✅" : "❌"}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    socket.on("game_created", (pin) => {
+      currentPin = pin;
+      document.getElementById("pin").innerText = pin;
+    });
+
+    socket.on("players_update", (players) => {
+      const list = document.getElementById("players");
+      list.innerHTML = "";
+      players.forEach(p => {
+        const li = document.createElement("li");
+        li.innerHTML = `<span>${p.name}</span><span class="player-score">${p.score}</span>`;
+        list.appendChild(li);
+      });
+    });
+
+    socket.on("answer_update", (answers) => {
+      renderAnswers(answers);
+    });
+
+    socket.on("question_result", ({ correctAnswer, answers, players }) => {
+      const answeredNames = answers.map(a => a.name);
+      players.forEach(p => {
+        if (!answeredNames.includes(p.name)) {
+          answers.push({ name: p.name, answer: "—", correct: false, skipped: true });
+        }
+      });
+      renderAnswers(answers, correctAnswer);
+    });
+  </script>
+</body>
+</html>

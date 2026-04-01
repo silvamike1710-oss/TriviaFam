@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuizBlitz — Play</title>
+  <link rel="stylesheet" href="player.css" />
+</head>
+<body>
+  <div id="waiting" class="waiting">
+    <div class="waiting-icon">🎮</div>
+    <p>Waiting for the host to start...</p>
+  </div>
+
+  <div id="question-wrap" class="question-wrap" style="display:none;">
+    <h2 id="question"></h2>
+    <div id="answers"></div>
+    <div id="feedback" class="result-feedback"></div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const pin = localStorage.getItem("pin");
+    const name = localStorage.getItem("name");
+
+    socket.emit("rejoin_game", { pin, name });
+
+    socket.on("new_question", (q) => {
+      document.getElementById("waiting").style.display = "none";
+      document.getElementById("question-wrap").style.display = "block";
+      document.getElementById("feedback").textContent = "";
+      document.getElementById("question").innerText = q.question;
+
+      const container = document.getElementById("answers");
+      container.innerHTML = "";
+
+      q.options.forEach((opt, i) => {
+        const btn = document.createElement("button");
+        btn.className = "answer-btn";
+        btn.innerText = opt;
+        btn.onclick = () => {
+          socket.emit("answer", { pin, answer: i });
+          document.querySelectorAll(".answer-btn").forEach(b => {
+            b.classList.add("selected");
+            b.onclick = null;
+          });
+        };
+        container.appendChild(btn);
+      });
+    });
+
+    socket.on("question_result", ({ correctAnswer }) => {
+      const buttons = document.querySelectorAll(".answer-btn");
+      const feedback = document.getElementById("feedback");
+      buttons.forEach((btn, i) => {
+        if (i === correctAnswer) btn.style.filter = "brightness(1)";
+      });
+      feedback.textContent = "⏳ Next question coming up...";
+      feedback.className = "result-feedback";
+    });
+
+    socket.on("game_over", (players) => {
+      const sorted = [...players].sort((a, b) => b.score - a.score);
+      document.getElementById("question-wrap").innerHTML = `
+        <h2 id="question">🏆 Game Over!</h2>
+        <div id="answers" style="display:flex;flex-direction:column;gap:0.75rem;margin-top:1rem;">
+          ${sorted.map((p, i) => `
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.9rem 1.2rem;display:flex;justify-content:space-between;align-items:center;font-weight:700;">
+              <span>${i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `${i+1}.`} ${p.name}</span>
+              <span style="font-family:'Boogaloo',cursive;font-size:1.3rem;color:var(--yellow);">${p.score}</span>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
