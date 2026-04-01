@@ -32,9 +32,10 @@ body {
 }
 
 .card {
+  text-align: center;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 24px;
+  border-radius: 10px;
   padding: 3rem 2.5rem;
   width: 100%;
   max-width: 420px;
@@ -86,7 +87,7 @@ label {
 input {
   background: rgba(255,255,255,0.04);
   border: 1.5px solid var(--border);
-  border-radius: 12px;
+  border-radius: 10px;
   color: var(--text);
   font-family: 'Nunito', sans-serif;
   font-size: 1.1rem;
@@ -112,7 +113,7 @@ input:focus {
   margin-top: 0.75rem;
   padding: 1rem;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   font-family: 'Boogaloo', cursive;
   font-size: 1.4rem;
   letter-spacing: 1px;
@@ -134,11 +135,11 @@ input:focus {
 
 
 .btn2 {
-  width: 50%;
+  width: 100%;
   margin-top: 0.75rem;
   padding: 1rem;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   font-family: 'Boogaloo', cursive;
   font-size: 1.4rem;
   letter-spacing: 1px;
@@ -156,4 +157,8 @@ input:focus {
 
 .btn2:active {
   transform: translateY(0);
+}
+
+a{
+  text-decoration: none;
 }

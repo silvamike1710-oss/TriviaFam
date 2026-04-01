@@ -3,39 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QuizBlitz — Host</title>
+  <title>Comuhoot — Host</title>
   <link rel="stylesheet" href="/host.css" />
 </head>
 <body>
   <div class="page">
     <div class="header">
-      <div class="logo">QuizBlitz</div>
+      <div class="logo">Comuhoot</div>
 
       <div class="pin-badge">
-        <div class="pin-label">Game PIN</div>
+        <div class="pin-label">Senha</div>
         <div class="pin-number" id="pin">——</div>
       </div>
 
       <div class="actions">
-        <button class="btn btn-primary" onclick="create()">Create Game</button>
-        <button class="btn btn-start" onclick="start()">▶ Start</button>
+        <button class="btn btn-primary" onclick="create()">Criar Jogo</button>
+        <button class="btn btn-start" onclick="start()">▶ Começar</button>
       </div>
     </div>
 
     <div class="grid">
       <div class="card">
-        <div class="card-title">Players</div>
+        <div class="card-title">Jogadores</div>
         <ul id="players"></ul>
       </div>
 
       <div class="card">
-        <div class="card-title">Answers This Round</div>
+        <div class="card-title">Respostas da Rodada</div>
         <table id="answer-table">
           <thead>
             <tr>
-              <th>Player</th>
-              <th>Answered</th>
-              <th>Correct?</th>
+              <th>Jogadores |</th>
+              <th> Respondeu |</th>
+              <th>Correta?</th>
             </tr>
           </thead>
           <tbody id="answer-rows"></tbody>

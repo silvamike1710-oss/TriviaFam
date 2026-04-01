@@ -28,17 +28,22 @@ body {
   justify-content: center;
   font-family: 'Nunito', sans-serif;
   color: var(--text);
-  padding: 2rem;
+  padding: 3rem;
 }
-
+#players li {
+  display: flex;
+  justify-content: space-between;
+}
 .card {
+  margin-bottom: 1rem;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 24px;
+  border-radius: 10px;
   padding: 3rem 2.5rem;
+  gap: 10px;
   width: 100%;
   max-width: 420px;
-  box-shadow: 0 0 60px rgba(0,229,255,0.07), 0 20px 60px rgba(0,0,0,0.5);
+  box-shadow: 0 0 50px rgba(0,229,255,0.07), 0 20px 60px rgba(0,0,0,0.5);
   animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
@@ -86,7 +91,7 @@ label {
 input {
   background: rgba(255,255,255,0.04);
   border: 1.5px solid var(--border);
-  border-radius: 12px;
+  border-radius: 10px;
   color: var(--text);
   font-family: 'Nunito', sans-serif;
   font-size: 1.1rem;
@@ -110,9 +115,10 @@ input:focus {
 .btn {
   width: 100%;
   margin-top: 0.75rem;
+  margin-bottom: 1rem;
   padding: 1rem;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   font-family: 'Boogaloo', cursive;
   font-size: 1.4rem;
   letter-spacing: 1px;
@@ -120,7 +126,7 @@ input:focus {
   transition: transform 0.15s, box-shadow 0.15s;
   background: var(--yellow);
   color: #0d0d1a;
-  box-shadow: 0 4px 20px rgba(249,224,0,0.3);
+  box-shadow: 0 4px 10px rgba(249,224,0,0.3);
   text-decoration: none;
   display: block;
   text-align: center;
@@ -128,7 +134,7 @@ input:focus {
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(249,224,0,0.45);
+  box-shadow: 0 8px 18px rgba(249,224,0,0.45);
 }
 
 .btn:active {
@@ -139,12 +145,12 @@ input:focus {
   background: transparent;
   color: var(--cyan);
   border: 1.5px solid var(--cyan);
-  box-shadow: 0 4px 20px rgba(0,229,255,0.1);
+  box-shadow: 0 4px 10px rgba(0,229,255,0.1);
 }
 
 .btn-secondary:hover {
   background: rgba(0,229,255,0.07);
-  box-shadow: 0 8px 28px rgba(0,229,255,0.2);
+  box-shadow: 0 8px 18px rgba(0,229,255,0.2);
 }
 
 .divider {
@@ -166,3 +172,4 @@ input:focus {
   height: 1px;
   background: var(--border);
 }
+

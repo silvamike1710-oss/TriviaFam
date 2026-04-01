@@ -3,29 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QuizBlitz — Join</title>
+  <title>Comuhoot — Join</title>
   <link rel="stylesheet" href="index.css" />
 </head>
 <body>
   <div class="card">
-    <div class="logo">QuizBlitz</div>
-    <p class="subtitle">Live Quiz Game</p>
+    <div class="logo">Comuhoot</div>
+    <p class="subtitle">Trivia grátis</p>
 
     <div class="field">
-      <label for="name">Your Name</label>
-      <input id="name" placeholder="Enter your name" autocomplete="off" />
+      <label for="name">Seu nome</label>
+      <input id="name" placeholder="insira seu nome" autocomplete="off" />
     </div>
 
     <div class="field">
-      <label for="pin">Game PIN</label>
-      <input id="pin" placeholder="6-digit PIN" maxlength="6" autocomplete="off" />
+      <label for="pin">senha</label>
+      <input id="pin" placeholder="senha de 6 digitos" maxlength="6" autocomplete="off" />
     </div>
 
-    <button class="btn" onclick="join()">Join Game</button>
+    <button class="btn" onclick="join()">Entrar no Jogo</button>
 
     <div class="divider">or</div>
 
-    <a class="btn btn-secondary" href="/host.html">Host a Game</a>
+    <a class="btn btn-secondary" href="/host.html">Criar um Jogo</a>
   </div>
 
   <script src="/socket.io/socket.io.js"></script>
